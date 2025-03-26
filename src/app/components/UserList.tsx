@@ -13,24 +13,24 @@ const UserList = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("https://jsonplaceholder.typicode.com/users");
-        if (!response.ok) {
-          throw new Error("Lỗi khi lấy dữ liệu");
-        }
-        const data = await response.json();
-        setUsers(data); 
-        /* eslint-disable @typescript-eslint/no-explicit-any */
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("https://jsonplaceholder.typicode.com/users");
+      if (!response.ok) {
+        throw new Error("Lỗi khi lấy dữ liệu");
       }
-    };
-
+      const data = await response.json();
+      setUsers(data); 
+      /* eslint-disable @typescript-eslint/no-explicit-any */
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
     fetchUsers();
   }, []); // useEffect chạy 1 lần khi component mount
 
