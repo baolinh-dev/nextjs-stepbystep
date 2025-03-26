@@ -1,24 +1,27 @@
-"use client"; // Nếu dùng App Router trong Next.js 13+
+"use client";
 
 import { useState, useEffect } from "react";
 
 const Clock = () => {
-  const [time, setTime] = useState(new Date());
+  const [count, setCount] = useState(10);
 
   useEffect(() => {
-    // Cập nhật thời gian mỗi giây
+    // Dừng nếu count <= 0
+    if (count <= 0) return;
+
+    // Tạo một interval để giảm count mỗi giây
     const intervalId = setInterval(() => {
-      setTime(new Date());
+      setCount((prev) => prev - 1);
     }, 1000);
 
-    // Cleanup interval khi component unmount
+    // Cleanup khi count thay đổi hoặc component bị unmount
     return () => clearInterval(intervalId);
-  }, []);
+  }, [count]); // useEffect chạy lại khi count thay đổi
 
   return (
     <div className="p-4 border rounded-lg shadow-md text-center">
-      <h2 className="text-xl font-bold">Đồng hồ</h2>
-      <p className="text-2xl mt-2">{time.toLocaleTimeString()}</p>
+      <h2 className="text-xl font-bold">Đếm ngược</h2>
+      <p className="text-3xl mt-2 text-red-500">{count}</p>
     </div>
   );
 };
