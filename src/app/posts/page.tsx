@@ -13,9 +13,10 @@ export default function PostsPage() {
 
   // 🚀 Fetch danh sách bài viết
   useEffect(() => {
-    fetch("/api/posts")
+    fetch("/api/posts", { cache: "force-cache" }) // Đặt options đúng vị trí
       .then((res) => res.json())
-      .then((data) => setPosts(data));
+      .then((data) => setPosts(data))
+      .catch((error) => console.error("Error fetching posts:", error));
   }, []);
 
   // 🚀 Thêm bài viết mới
@@ -62,7 +63,10 @@ export default function PostsPage() {
           <li key={post.id} className="border p-4 mb-2">
             <h2 className="text-xl font-bold">{post.title}</h2>
             <p>{post.content}</p>
-            <button className="bg-red-500 text-white px-4 py-1 mt-2" onClick={() => deletePost(post.id)}>
+            <button
+              className="bg-red-500 text-white px-4 py-1 mt-2"
+              onClick={() => deletePost(post.id)}
+            >
               Xóa
             </button>
           </li>
