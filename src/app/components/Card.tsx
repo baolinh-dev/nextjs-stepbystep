@@ -1,11 +1,10 @@
-type BaseProps = {
+interface BaseProps {
     title: string;
     description: string;
-  };
-  
-  type AdvancedCardProps = BaseProps & {
+} 
+interface AdvancedCardProps extends BaseProps {
     imageUrl?: string;
-  };
+  } 
   
   const Card: React.FC<AdvancedCardProps> = ({ title, description, imageUrl }) => {
     return (
